@@ -1,0 +1,40 @@
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://localhost:8761/eureka/
+
+server:
+  port: 8081
+  
+spring:
+  application:
+    name: user
+    
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://139.199.86.201/test?characterEncoding=utf-8&useSSL=false
+  jpa:
+    show-sql: true
+
+  redis:
+    port: 8080
+    database: 0
+    host: 139.199.86.201
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 5000ms
+
+#设置全局请求路径前缀
+#server:
+#  servlet:
+#    context-path: /user
+
+
+
