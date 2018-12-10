@@ -4,89 +4,77 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>xyz.yzblog</groupId>
-		<artifactId>user_service</artifactId>
+		<artifactId>weather-service</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>user-server</artifactId>
-	<name>user-server</name>
-	<description>用户服务</description>
+	<artifactId>weather-server</artifactId>
 
+	<name>weather</name>
+	<description>天气预报</description>
+	
+	<properties>
+		<weather-common.version>0.0.1-SNAPSHOT</weather-common.version>
+	</properties>
+	
 	<dependencies>
-		
-		<dependency>
-			<groupId>xyz.yzblog</groupId>
-			<artifactId>user-client</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 		<dependency>
 			<groupId>xyz.yzblog</groupId>
     		<artifactId>weather-common</artifactId>
-    		<version>0.0.1-SNAPSHOT</version>
+    		<version>${weather-common.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>xyz.yzblog</groupId>
-    		<artifactId>weather-client</artifactId>
-    		<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
 		</dependency>
-
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
 		</dependency>
 
-		<!--<dependency> -->
-		<!--<groupId>org.mybatis.spring.boot</groupId> -->
-		<!--<artifactId>mybatis-spring-boot-starter</artifactId> -->
-		<!--</dependency> -->
+		<!-- Json支持 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.5</version>
+		</dependency>
 
+		<!-- swagger-UI -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
-			<version>2.9.2</version>
+			<version>2.2.2</version>
 		</dependency>
-
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.9.2</version>
+			<version>2.2.2</version>
 		</dependency>
 
+		<!-- 热部署 -->
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-quartz</artifactId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

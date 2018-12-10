@@ -1,11 +1,13 @@
 package com.yzeng.userserver.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import xyz.yzblog.weather.client.WeatherClient;
+import xyz.yzblog.weather.vo.WeatherResBody;
 
 /**
  * 对其他服务提供数据的Controller
@@ -17,9 +19,19 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 public class ClientController {
+	
+	@Autowired
+	private WeatherClient weatherClient;
+	
 	@GetMapping("/login")
 	@ApiOperation(value="userId",notes="用户ID")
     public String getAvatarByUserId(@RequestParam("userId") String userId) {
         return "success";
     }
+	
+	@GetMapping("/register")
+	public WeatherResBody getTest() {
+		return weatherClient.getWeatherDateByCityName("深圳");
+		
+	}
 }

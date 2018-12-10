@@ -1,4 +1,4 @@
-package com.yzeng.userserver;
+package xyz.yzblog.weather;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,12 +11,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableSwagger2
-//@EnableFeignClients(basePackages = "com.yzeng.userclient")
-@EnableFeignClients(basePackages = "xyz.yzblog.weather.client")
 @EnableCaching
-public class UserApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(UserApplication.class, args);
-    }
+public class WeatherApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(WeatherApplication.class, args);
+	}
 }
