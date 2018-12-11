@@ -1,4 +1,4 @@
-package com.yzeng.userserver.controller;
+package com.yzeng.userserver.moduls.client.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.yzeng.userserver.vo;
+package com.yzeng.userserver.VO;
 
 import java.io.Serializable;
 
@@ -19,6 +19,8 @@ public class ResultVO<T> implements Serializable{
      * 返回的数据
      */
     private T data;
+
+    
 
 	public Integer getCode() {
 		return code;
