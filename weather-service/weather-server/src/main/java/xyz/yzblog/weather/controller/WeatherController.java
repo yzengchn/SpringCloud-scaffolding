@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import xyz.yzblog.weather.service.WeatherService;
-import xyz.yzblog.weather.vo.WeatherResBody;
+import xyz.yzblog.weather.vo.WeatherResBodyVO;
 
 /**
  * 天气信息查询控制器
@@ -30,14 +30,14 @@ public class WeatherController {
 	@ApiOperation(value="城市ID", notes="根据城市ID获取该城市的天气预报信息")
     @ApiImplicitParam(paramType="path", name = "cityId", value = "城市ID", required = true, dataType = "String")
 	@GetMapping("/cityId/{cityId}")
-	public WeatherResBody getWeatherDateByCityId(@PathVariable("cityId")String cityId) {
+	public WeatherResBodyVO getWeatherDateByCityId(@PathVariable("cityId")String cityId) {
 		return weatherService.getWeatherDateByCityId(cityId);
 	}
 	
 	@ApiOperation(value="城市名称", notes="根据城市名称获取该城市的天气预报信息")
     @ApiImplicitParam(paramType="path",name = "cityName", value = "城市名称", required = true, dataType = "String")
 	@GetMapping("/cityName/{cityName}")
-	public WeatherResBody getWeatherDateByCityName(@PathVariable("cityName")String cityName) {
+	public WeatherResBodyVO getWeatherDateByCityName(@PathVariable("cityName")String cityName) {
 		return weatherService.getWeatherDateByCityName(cityName);
 	}
 }

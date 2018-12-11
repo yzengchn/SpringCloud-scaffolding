@@ -1,6 +1,6 @@
 package xyz.yzblog.weather.service;
 
-import xyz.yzblog.weather.vo.WeatherResBody;
+import xyz.yzblog.weather.vo.WeatherResBodyVO;
 
 /**
  * 天气服务接口，提供天气的查询
@@ -19,7 +19,7 @@ public interface WeatherService {
 	 * @return WeatherResBody
 	 * @see [类、类#方法、类#成员]
 	 */
-	WeatherResBody getWeatherDateByCityId(String cityId);
+	WeatherResBodyVO getWeatherDateByCityId(String cityId);
 	
 	/**
 	 * 根据城市名称查询天气数据
@@ -30,5 +30,5 @@ public interface WeatherService {
 	 * @return WeatherResBody
 	 * @see [类、类#方法、类#成员]
 	 */
-	WeatherResBody getWeatherDateByCityName(String cityName);
+	WeatherResBodyVO getWeatherDateByCityName(String cityName);
 }

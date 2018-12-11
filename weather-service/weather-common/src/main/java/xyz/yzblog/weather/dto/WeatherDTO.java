@@ -1,4 +1,4 @@
-package xyz.yzblog.weather.entity;
+package xyz.yzblog.weather.dto;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
  * @Email yzengchn@163.com
  * @since  [产品/模块版本]
  */
-public class Weather implements Serializable{
+public class WeatherDTO implements Serializable{
 	/**
 	 * 
 	 */
@@ -34,11 +34,11 @@ public class Weather implements Serializable{
 	/**
 	 * 昨日天气
 	 */
-	private Yesterday yesterday;
+	private YesterdayDTO yesterday;
 	/**
 	 * 未来几天天气
 	 */
-	private List<Forecast> forecast;
+	private List<ForecastDTO> forecast;
 	public String getCity() {
 		return city;
 	}
@@ -63,16 +63,16 @@ public class Weather implements Serializable{
 	public void setGanmao(String ganmao) {
 		this.ganmao = ganmao;
 	}
-	public Yesterday getYesterday() {
+	public YesterdayDTO getYesterday() {
 		return yesterday;
 	}
-	public void setYesterday(Yesterday yesterday) {
+	public void setYesterday(YesterdayDTO yesterday) {
 		this.yesterday = yesterday;
 	}
-	public List<Forecast> getForecast() {
+	public List<ForecastDTO> getForecast() {
 		return forecast;
 	}
-	public void setForecast(List<Forecast> forecast) {
+	public void setForecast(List<ForecastDTO> forecast) {
 		this.forecast = forecast;
 	}
 	

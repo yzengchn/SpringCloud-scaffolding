@@ -2,7 +2,7 @@ package xyz.yzblog.weather.vo;
 
 import java.io.Serializable;
 
-import xyz.yzblog.weather.entity.Weather;
+import xyz.yzblog.weather.dto.WeatherDTO;
 
 /**
  * 天气消息的返回对象封装
@@ -11,7 +11,7 @@ import xyz.yzblog.weather.entity.Weather;
  * @Email yzengchn@163.com
  * @since  [产品/模块版本]
  */
-public class WeatherResBody implements Serializable{
+public class WeatherResBodyVO implements Serializable{
 
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class WeatherResBody implements Serializable{
 	/**
 	 * 消息数据
 	 */
-	private Weather data; 
+	private WeatherDTO data; 
 	/**
 	 * 消息状态
 	 */
@@ -30,10 +30,10 @@ public class WeatherResBody implements Serializable{
 	 * 消息描述
 	 */
 	private String desc;
-	public Weather getData() {
+	public WeatherDTO getData() {
 		return data;
 	}
-	public void setData(Weather data) {
+	public void setData(WeatherDTO data) {
 		this.data = data;
 	}
 	public String getStatus() {

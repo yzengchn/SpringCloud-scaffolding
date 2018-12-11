@@ -1,4 +1,4 @@
-package xyz.yzblog.weather.entity;
+package xyz.yzblog.weather.dto;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @Email yzengchn@163.com
  * @since  [产品/模块版本]
  */
-public class Forecast implements Serializable{
+public class ForecastDTO implements Serializable{
 
 	/**
 	 * 

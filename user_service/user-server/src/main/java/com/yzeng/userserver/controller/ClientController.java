@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import xyz.yzblog.weather.client.WeatherClient;
-import xyz.yzblog.weather.vo.WeatherResBody;
+import xyz.yzblog.weather.vo.WeatherResBodyVO;
 
 /**
  * 对其他服务提供数据的Controller
@@ -30,7 +30,7 @@ public class ClientController {
     }
 	
 	@GetMapping("/register")
-	public WeatherResBody getTest() {
+	public WeatherResBodyVO getTest() {
 		return weatherClient.getWeatherDateByCityName("深圳");
 		
 	}

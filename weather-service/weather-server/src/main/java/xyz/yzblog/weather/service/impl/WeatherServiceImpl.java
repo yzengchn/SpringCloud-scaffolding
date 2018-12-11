@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSON;
 
 import xyz.yzblog.weather.constants.BaseConstant;
 import xyz.yzblog.weather.service.WeatherService;
-import xyz.yzblog.weather.vo.WeatherResBody;
+import xyz.yzblog.weather.vo.WeatherResBodyVO;
 
 @Service
 public class WeatherServiceImpl implements WeatherService{
@@ -18,13 +18,13 @@ public class WeatherServiceImpl implements WeatherService{
 	private RestTemplate restTemplate; 
 
 	@Override
-	public WeatherResBody getWeatherDateByCityId(String cityId) {
+	public WeatherResBodyVO getWeatherDateByCityId(String cityId) {
 		String uri = BaseConstant.WEATHER_API + "?citykey=" + cityId;
 		return this.doGetWeatherData(uri);
 	}
 
 	@Override
-	public WeatherResBody getWeatherDateByCityName(String cityName) {
+	public WeatherResBodyVO getWeatherDateByCityName(String cityName) {
 		String uri = BaseConstant.WEATHER_API + "?city=" + cityName;
 		return this.doGetWeatherData(uri);
 	}
@@ -38,16 +38,16 @@ public class WeatherServiceImpl implements WeatherService{
 	 * @return
 	 * @see [类、类#方法、类#成员]
 	 */
-	private WeatherResBody doGetWeatherData(String url) {
+	private WeatherResBodyVO doGetWeatherData(String url) {
 		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 		String ResBoby = null;
-		WeatherResBody weather = null;
+		WeatherResBodyVO weather = null;
 		
 		if(response.getStatusCodeValue() == 200) {
 			ResBoby = response.getBody();
 		}
 		
-		weather = JSON.parseObject(ResBoby, WeatherResBody.class);
+		weather = JSON.parseObject(ResBoby, WeatherResBodyVO.class);
 		return weather;
 	}
 
