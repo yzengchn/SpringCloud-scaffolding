@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,11 @@ public class UserController {
 		List<UserDO> listUsers = userService.listUsers();
 		List<UserMsgDTO> msgDTOList = UserDO2UserMsgDTOConverter.UserDOList2UserMsgDTOList(listUsers);
 		return msgDTOList;
+	}
+	
+	@GetMapping("/get/name/{username}")
+	@ResponseBody
+	public UserMsgDTO getUserByName(@PathVariable("username")String username) {
+		return UserDO2UserMsgDTOConverter.userDO2UserMsgDTO(userService.getUserByName(username));
 	}
 }

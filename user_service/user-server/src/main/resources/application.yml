@@ -14,7 +14,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: ENC(vj6RHAkuT7UvXf5GiKKVdA==)
-    url: jdbc:mysql://139.199.86.201/charself?characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://127.0.0.1/charself?characterEncoding=utf-8&useSSL=false
   jpa:
     show-sql: true
 

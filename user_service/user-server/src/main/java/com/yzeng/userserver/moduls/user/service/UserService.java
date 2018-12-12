@@ -6,4 +6,5 @@ import com.yzeng.userserver.DO.UserDO;
 
 public interface UserService {
 	List<UserDO> listUsers();
+	UserDO getUserByName(String username);
 }

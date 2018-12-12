@@ -20,5 +20,12 @@ public class UserServiceImpl implements UserService{
 	public List<UserDO> listUsers() {
 		return userRepository.findAll();
 	}
+
+	@Override
+	public UserDO getUserByName(String username) {
+		return userRepository.getUserByUsername(username);
+	}
+
+	
 	
 }
