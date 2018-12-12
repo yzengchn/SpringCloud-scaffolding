@@ -2,7 +2,9 @@ package com.yzeng.userserver.VO;
 
 import java.io.Serializable;
 
-public class ResultVO<T> implements Serializable{
+import com.yzeng.userserver.enums.ResultEnum;
+
+public class ResultVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -18,9 +20,19 @@ public class ResultVO<T> implements Serializable{
     /**
      * 返回的数据
      */
-    private T data;
+    private Object data;
 
     
+
+	public ResultVO() {
+		super();
+	}
+
+	public ResultVO(ResultEnum resultEnum) {
+		super();
+		this.code = resultEnum.getCode();
+		this.msg = resultEnum.getMsg();
+	}
 
 	public Integer getCode() {
 		return code;
@@ -38,12 +50,14 @@ public class ResultVO<T> implements Serializable{
 		this.msg = msg;
 	}
 
-	public T getData() {
+	public Object getData() {
 		return data;
 	}
 
-	public void setData(T data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
+
+	
 	
 }

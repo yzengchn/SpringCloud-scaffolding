@@ -3,12 +3,11 @@ eureka:
     service-url:
       defaultZone:  http://localhost:8761/eureka/
       
+server:
+  port: 8084      
 spring:
   application:
     name: weather
-  
-server:
-  port: 8084
   
   
 swagger:

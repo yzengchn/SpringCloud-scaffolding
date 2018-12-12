@@ -22,7 +22,7 @@ public class UserExceptionHandler {
 	@ExceptionHandler(value=UserException.class)
 	@ResponseBody
 	public ResultVO handler(Exception e) {
-		ResultVO vo = new ResultVO<>();
+		ResultVO vo = new ResultVO();
 		UserException userException = null;
 		if(e instanceof UserException) {
 			userException = (UserException) e;

@@ -3,11 +3,13 @@ package com.yzeng.gateway.filter;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -16,6 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import com.yzeng.gateway.consts.RedisConsts;
 import com.yzeng.gateway.utils.CookieUtils;
 import com.yzeng.gateway.vo.ResultVO;
 
@@ -23,6 +26,9 @@ import com.yzeng.gateway.vo.ResultVO;
 @Component
 public class AuthFilter extends ZuulFilter{
 	private static Logger LOG = LoggerFactory.getLogger(AuthFilter.class);
+	
+	@Resource
+	private StringRedisTemplate stringRedisTemplate;
 	
 	//排除过滤的 uri 地址
     private static final String LOGIN_URI = "/user/login";
@@ -70,7 +76,7 @@ public class AuthFilter extends ZuulFilter{
 		if(cookieToken == null || StringUtils.isEmpty(cookieToken.getValue())) {
 			readTokenFromHeader(context, request);
 		}else {
-			
+			verifyToken(context, request, cookieToken.getValue());
 		}
 		
 		LOG.info("ok");
@@ -119,11 +125,17 @@ public class AuthFilter extends ZuulFilter{
 				setUnauthorizedResponse(requestContext, INVALID_USERID);
 			}else {
 				//根据键从redis取出值
-				
+				String redisToken = stringRedisTemplate.opsForValue().get(String.format(RedisConsts.TOKEN_TEMPLATE, userId));
+				if(StringUtils.isEmpty(redisToken) || !redisToken.equals(token)) {
+					setUnauthorizedResponse(requestContext, INVALID_TOKEN);
+				}
 			}
-		//键不为空直接去和redis中的值比较
+		//键不为空直接拿Cookie中的去和redis中的值比较
 		}else {
-			
+			String redisToken = stringRedisTemplate.opsForValue().get(String.format(RedisConsts.TOKEN_TEMPLATE, cookieUserId.getValue()));
+			if(StringUtils.isEmpty(redisToken) || !redisToken.equals(token)) {
+				setUnauthorizedResponse(requestContext, INVALID_TOKEN);
+			}
 		}
 	}
 	
