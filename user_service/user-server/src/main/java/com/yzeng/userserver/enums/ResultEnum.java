@@ -8,9 +8,20 @@ package com.yzeng.userserver.enums;
  * @since  [产品/模块版本]
  */
 public enum ResultEnum {
-	REGISTER_FAIL(1001, "注册失败，请重试"),
+	/**
+	 * 1001 注册失败，请重试
+	 */
+	REGISTER_FAIL(1001, "注册失败，请重试！"),
+	
+	USER_PASSWORD_ERROR(1021,"用户名或密码错误！"),
+	PASSWORD_INCONSISTENT(1022,"两次密码输入不一致！"),
+	OLD_PASSWORD_ERROR(1023,"原密码输入错误！"),
+	
 	USER_SAVE_FAIL(1099,"保存用户失败！"),
 	
+	/**
+	 * 9001 参数错误
+	 */
 	PARAMS_ERROR(9001, "参数错误"),
 	SYSTEM_EXCEPTION(9999,"系统异常！"),
 	SUCCESS(1,"操作成功！"),

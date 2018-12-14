@@ -87,4 +87,10 @@ public class UserDO implements Serializable {
 		this.salt = salt;
 	}
 
+	@Override
+	public String toString() {
+		return "UserDO [id=" + id + ", username=" + username + ", password=" + password + ", salt=" + salt
+				+ ", registertime=" + registertime + ", lastTime=" + lastTime + ", lastIp=" + lastIp + "]";
+	}
+
 }
