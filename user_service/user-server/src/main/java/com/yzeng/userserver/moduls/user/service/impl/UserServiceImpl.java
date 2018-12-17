@@ -2,30 +2,37 @@ package com.yzeng.userserver.moduls.user.service.impl;
 
 import java.util.Date;
 import java.util.List;
-
-import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.DigestUtils;
 
 import com.yzeng.userserver.DO.UserDO;
 import com.yzeng.userserver.DTO.UserMsgDTO;
+import com.yzeng.userserver.consts.RedisConsts;
 import com.yzeng.userserver.enums.ResultEnum;
 import com.yzeng.userserver.exception.UserException;
 import com.yzeng.userserver.moduls.user.service.UserService;
 import com.yzeng.userserver.repository.UserRepository;
+import com.yzeng.userserver.utils.IdKeyUtils;
+import com.yzeng.userserver.utils.Md5Utils;
 
 @Service
 public class UserServiceImpl implements UserService{
 
-	@Resource
+	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private StringRedisTemplate stringRedisTemplate;
+	
 	@Override
-	public List<UserDO> listUsers() {
-		return userRepository.findAll();
+	public List<UserDO> listUsers(Integer page, Integer size, Integer sort) {
+		return userRepository.findAll(PageRequest.of(page,size)).getContent();
 	}
 
 	@Override
@@ -39,9 +46,9 @@ public class UserServiceImpl implements UserService{
 		UserDO userDO = new UserDO();
 		BeanUtils.copyProperties(dto, userDO);
 		//当前时间作为盐
-		String salt = getCurrentDateMd5Str();
+		String salt = Md5Utils.getCurrentDateMd5Str();
 		//MD5加盐
-		String md5AddSalt = getMd5AddSalt(salt, userDO.getPassword());
+		String md5AddSalt = Md5Utils.getMd5AddSalt(salt, userDO.getPassword());
 		
 		userDO.setPassword(md5AddSalt);
 		userDO.setSalt(salt);
@@ -55,16 +62,44 @@ public class UserServiceImpl implements UserService{
 		}
 		return do1;
 	}
-
+	
+	@Override
+	public UserMsgDTO login(String username, String password) {
+		UserDO userDO = userRepository.getUserByUsername(username);
+		//用户是否存在
+		if(userDO == null) {
+			throw new UserException(ResultEnum.USER_NOT_EXIST);
+		}
+		//密码是否一致
+		if(!userDO.getPassword().equals(Md5Utils.getMd5AddSalt(userDO.getSalt(), password))) {
+			throw new UserException(ResultEnum.USER_PASSWORD_ERROR);
+		}
+		//生成Token
+		String token = IdKeyUtils.genUniqueKey();
+		try {
+			//放入Redis
+			stringRedisTemplate.opsForValue()
+				.set(String.format(RedisConsts.TOKEN_TEMPLATE, userDO.getId()), token, 2L, TimeUnit.HOURS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new UserException(ResultEnum.SYSTEM_EXCEPTION);
+		}
+		
+		UserMsgDTO dto = new UserMsgDTO();
+		BeanUtils.copyProperties(userDO, dto);
+		
+		return dto;
+	}
+	
 	@Override
 	public void resetPassword(Integer userId, String oldPassword, String password, String ip) {
 		UserDO userDO = userRepository.findById(userId).get();
 		String salt = userDO.getSalt();
 		String dbPassword = userDO.getPassword();
-		String md5AddSalt = getMd5AddSalt(salt, oldPassword);
+		String md5AddSalt = Md5Utils.getMd5AddSalt(salt, oldPassword);
 		//对比数据库和用户输入的是否一致
 		if(dbPassword.equals(md5AddSalt)) {
-			userDO.setPassword(getMd5AddSalt(salt, password));
+			userDO.setPassword(Md5Utils.getMd5AddSalt(salt, password));
 			userDO.setLastTime(new Date());
 			userDO.setLastIp(ip);
 			
@@ -76,32 +111,10 @@ public class UserServiceImpl implements UserService{
 		
 	}
 	
-	/**
-	 * 获取当前时间戳MD5加密字符
-	 * @author <a href="http://www.yzblog.xyz">yzblog</a>
-	 * @date 2018年12月14日 上午11:46:38
-	 * @title getCurrentMd5Str
-	 * @return String
-	 */
-	String getCurrentDateMd5Str() {
-		String millis = String.valueOf(System.currentTimeMillis());
-		String salt = DigestUtils.md5DigestAsHex(millis.getBytes()); 
-		return salt;
-	}
-	
-	/**
-	 * 获得MD5加盐后的字符串 
-	 * @author <a href="http://www.yzblog.xyz">yzblog</a>
-	 * @date 2018年12月14日 上午11:40:03
-	 * @title getMd5AddSalt
-	 * @param salt
-	 * @param password
-	 * @return String
-	 */
-	String getMd5AddSalt(String salt, String password) {
-		String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
-		String md5AddSaltStr = md5Password + salt;
-		return DigestUtils.md5DigestAsHex(md5AddSaltStr.getBytes());
+	@Override
+	public void logout(String userId) {
+		String key = String.format(RedisConsts.TOKEN_TEMPLATE, userId);
+		stringRedisTemplate.delete(key);
 	}
 	
 }

@@ -13,7 +13,7 @@ public interface UserService {
 	 * @title listUsers
 	 * @return List<UserDO>
 	 */
-	List<UserDO> listUsers();
+	List<UserDO> listUsers(Integer page, Integer size, Integer sort);
 	
 	/**
 	 * 根据用户名查询用户 
@@ -46,4 +46,26 @@ public interface UserService {
 	 * @param ip
 	 */
 	void resetPassword(Integer userId, String oldPassword, String password,String ip);
+	
+	/**
+	 * 用户名加密码登录
+	 * @author <a href="http://www.yzblog.xyz">yzblog</a>
+	 * @date 2018年12月17日 下午2:01:36
+	 * @title login
+	 * @param username
+	 * @param password
+	 * @return
+	 * @return UserMsgDTO
+	 */
+	UserMsgDTO login(String username, String password);
+
+	/**
+	 * 注销登录 
+	 * @author <a href="http://www.yzblog.xyz">yzblog</a>
+	 * @date 2018年12月17日 下午2:50:15
+	 * @title logout
+	 * @param userId
+	 * @return void
+	 */
+	void logout(String userId);
 }

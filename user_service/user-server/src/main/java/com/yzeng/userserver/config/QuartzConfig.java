@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import com.yzeng.userserver.task.SendEmailTask;
 import com.yzeng.userserver.task.SendNoticeTask;
 
-@Configuration
+//@Configuration
 public class QuartzConfig {
 
     private static final String SEND_EMAIL_TASK = "sendEmailTask";

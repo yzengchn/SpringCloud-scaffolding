@@ -1,5 +1,7 @@
 package com.yzeng.userserver.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.yzeng.userserver.DO.UserDO;
@@ -15,4 +17,7 @@ public interface UserRepository extends JpaRepository<UserDO, Integer>{
 	 * @return UserDO
 	 */
 	UserDO getUserByUsername(String username);
+	
+	@Override
+	Page<UserDO> findAll(Pageable pageable);
 }

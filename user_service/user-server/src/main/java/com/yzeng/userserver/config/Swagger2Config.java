@@ -18,7 +18,7 @@ public class Swagger2Config {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.yzeng.userserver.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.yzeng.userserver.moduls"))
                 .paths(PathSelectors.any())
                 .build();
     }
