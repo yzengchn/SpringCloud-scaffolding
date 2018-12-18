@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +33,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public List<UserDO> listUsers(Integer page, Integer size, Integer sort) {
-		return userRepository.findAll(PageRequest.of(page,size)).getContent();
+		//排序(注册时间倒叙，如果注册时间相等比较最后登录时间)
+		Sort orderBy = Sort.by(Sort.Direction.DESC,"registertime","lastTime");
+		return userRepository.findAll(PageRequest.of(page,size,orderBy)).getContent();
 	}
 
 	@Override

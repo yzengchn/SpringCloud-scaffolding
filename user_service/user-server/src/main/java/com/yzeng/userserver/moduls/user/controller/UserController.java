@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.yzeng.userserver.converter.UserDO2UserMsgDTOConverter;
 import com.yzeng.userserver.enums.ResultEnum;
 import com.yzeng.userserver.exception.UserException;
 import com.yzeng.userserver.moduls.user.service.UserService;
+import com.yzeng.userserver.moduls.user.service.mybatis.UserServiceMybatisImpl;
 import com.yzeng.userserver.utils.IPUtils;
 import com.yzeng.userserver.utils.ResultVOUtils;
 
@@ -42,6 +44,9 @@ public class UserController {
 	@Resource
 	private UserService userService;
 	
+	@Autowired
+	private UserServiceMybatisImpl userServiceMybatis;
+	
 	@GetMapping("/get")
 	@ApiOperation(value="查询用户列表",notes="分页查询用户列表")
 	@ApiImplicitParams({
@@ -51,6 +56,7 @@ public class UserController {
 	public List<UserMsgDTO> listUser(@RequestParam("page")Integer page,
 									 @RequestParam("size")Integer size)
 	{
+		List<UserDO> listUser = userServiceMybatis.ListUser();
 		List<UserDO> listUsers = userService.listUsers(page, size, null);
 		List<UserMsgDTO> msgDTOList = UserDO2UserMsgDTOConverter.UserDOList2UserMsgDTOList(listUsers);
 		return msgDTOList;
@@ -77,7 +83,7 @@ public class UserController {
 		return ResultVOUtils.success(userVO);
 	}
 	
-	@PostMapping("/regiter")
+	@PostMapping("/register")
 	@ApiOperation(value = "注册用户")
 	public ResultVO Register(@Valid UserVO user, BindingResult bindingResult,HttpServletRequest request) {
 		if(bindingResult.hasErrors()) {
@@ -103,6 +109,11 @@ public class UserController {
 							 @RequestParam("userId")Integer userId,
 							 @RequestParam("oldPassword")String oldPassword,
 							 @RequestParam("password")String password) {
+		if(StringUtils.isBlank(password) || StringUtils.isBlank(oldPassword) 
+				|| userId == null) {
+			throw new UserException(ResultEnum.PARAMS_NOT_ERROR);
+		}
+		
 		String ip = IPUtils.getIpAddr(request);
 		
 		userService.resetPassword(userId,oldPassword,password,ip);
