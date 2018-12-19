@@ -16,6 +16,8 @@ spring:
     password: ENC(vj6RHAkuT7UvXf5GiKKVdA==)
     url: jdbc:mysql://127.0.0.1/charself?characterEncoding=utf-8&useSSL=false
   jpa:
+    hibernate:
+      ddl-auto: update 
     show-sql: true
 
   redis:
@@ -30,6 +32,15 @@ spring:
         max-idle: 8
         min-idle: 0
     timeout: 5000ms
+    
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:/ehcache.xml
+      
+mybatis:
+  mapper-locations: classpath*:com/yzeng/userserver/mapper/**/*Mapper.xml
+  type-aliases-package: com.yzeng.userserver.DO 
 
 #设置全局请求路径前缀
 #server:
@@ -39,5 +50,10 @@ spring:
 jasypt:
   encryptor:
     password: yzblog
+
+#是否激活 swagger true or false
+swagger:
+  is:
+    enable: true
 
 
