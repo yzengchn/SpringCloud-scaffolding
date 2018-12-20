@@ -21,7 +21,7 @@ public class UserDO2UserMsgDTOConverter {
 	};
 	
 	public static UserMsgDTO userDO2UserMsgDTO(UserDO userDO) {
-		System.out.println(format.get().format(new Date()));
+		//System.out.println(format.get().format(new Date()));
 		UserMsgDTO dto = new UserMsgDTO();
 		BeanUtils.copyProperties(userDO, dto);
 		List<MessageDO> msgList = new ArrayList<>();

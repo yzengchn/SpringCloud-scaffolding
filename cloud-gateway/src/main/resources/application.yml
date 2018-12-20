@@ -1,0 +1,27 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: gateway
+    
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: service_user
+          uri: lb://USER
+          order: 0
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
+            - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  

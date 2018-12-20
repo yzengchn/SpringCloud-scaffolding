@@ -1,7 +1,3 @@
-eureka:
-  client:
-    service-url:
-      defaultZone:  http://localhost:8761/eureka/
 
 server:
   port: 8082
@@ -12,9 +8,9 @@ spring:
     
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    username: root
+    username: ENC(vZSAzPqDeMa6QyAfOnjsGw==)
     password: ENC(vj6RHAkuT7UvXf5GiKKVdA==)
-    url: jdbc:mysql://127.0.0.1/charself?characterEncoding=utf-8&useSSL=false
+    url: ENC(xFYrS41Z+hZQUu5Ar4NLMs5FgIFehTtXzlh1zkLsgXK2QchvGpdUIbSYUUwJf1gmZ/gWTJRfepAIraNOqyaV3Z09gHwI/9bv1ZtSvQnqZw0g2kIpibaEiQ==)
   jpa:
     hibernate:
       ddl-auto: update 
@@ -38,6 +34,12 @@ spring:
     ehcache:
       config: classpath:/ehcache.xml
       
+  rabbitmq:
+    host: ENC(Idi2U0s9o+Nirn1A3VPi9pWyvsTfWQXz)
+    port: 5672
+    username: ENC(4vwbGkk/yPNDZOk/areNuw==)
+    password: ENC(TtZI4XvF651qurD25vbCF6NzrFHseOCn)  
+    
 mybatis:
   mapper-locations: classpath*:com/yzeng/userserver/mapper/**/*Mapper.xml
   type-aliases-package: com.yzeng.userserver.DO 
@@ -47,9 +49,6 @@ mybatis:
 #  servlet:
 #    context-path: /user
 
-jasypt:
-  encryptor:
-    password: yzblog
 
 #是否激活 swagger true or false
 swagger:

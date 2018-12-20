@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -25,7 +26,10 @@ import com.yzeng.userserver.utils.Md5Utils;
 
 @Service
 public class UserServiceImpl implements UserService{
-
+	
+	@Autowired
+	private AmqpTemplate amqpTemplate;
+	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -43,6 +47,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserDO getUserByName(String username) {
+		amqpTemplate.convertSendAndReceive("topic.message", username);
 		return userRepository.getUserByUsername(username);
 	}
 
