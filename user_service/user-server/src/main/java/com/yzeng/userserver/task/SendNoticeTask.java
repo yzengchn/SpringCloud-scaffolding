@@ -1,8 +1,6 @@
 package com.yzeng.userserver.task;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
@@ -15,12 +13,10 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
-import com.google.gson.JsonArray;
-import com.yzeng.userserver.DO.UserDO;
+import com.yzeng.userserver.DO.UserInfoDO;
 import com.yzeng.userserver.repository.UserRepository;
 import com.yzeng.userserver.utils.IPUtils;
 
-import springfox.documentation.spring.web.json.Json;
 import xyz.yzblog.weather.client.WeatherClient;
 import xyz.yzblog.weather.vo.WeatherResBodyVO;
 
@@ -48,11 +44,11 @@ public class SendNoticeTask extends QuartzJobBean{
 		
 		try {
 			
-			List<UserDO> list = userReposotory.findAll();
+			List<UserInfoDO> list = userReposotory.findAll();
 			
-			for (UserDO userDO : list) {
+			for (UserInfoDO userDO : list) {
 				
-				String ip = userDO.getLastIp();
+				String ip = userDO.getIp();
 				
 				if(StringUtils.isNotBlank(ip) && IPUtils.isIpv4(ip)) {
 					String ipArea = IPUtils.getIpArea(ip);

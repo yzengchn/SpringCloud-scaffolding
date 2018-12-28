@@ -11,16 +11,16 @@
 
 	<name>weather</name>
 	<description>天气预报</description>
-	
+
 	<properties>
 		<weather-common.version>0.0.1-SNAPSHOT</weather-common.version>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>xyz.yzblog</groupId>
-    		<artifactId>weather-common</artifactId>
-    		<version>${weather-common.version}</version>
+			<artifactId>weather-common</artifactId>
+			<version>${weather-common.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -30,6 +30,7 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>

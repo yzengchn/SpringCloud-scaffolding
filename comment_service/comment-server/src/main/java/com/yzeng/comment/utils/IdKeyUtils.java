@@ -1,4 +1,4 @@
-package com.yzeng.userserver.utils;
+package com.yzeng.comment.utils;
 
 import java.util.Random;
 import java.util.UUID;

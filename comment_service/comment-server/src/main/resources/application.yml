@@ -1,10 +1,13 @@
 
 server:
-  port: 8082
+  port: 8083
+  #设置全局请求路径前缀
+  servlet:
+    context-path: /comment
   
 spring:
   application:
-    name: user
+    name: comment
     
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -33,21 +36,11 @@ spring:
     type: redis
 #    ehcache:
 #      config: classpath:/ehcache.xml
-      
-  rabbitmq:
-    host: ENC(Idi2U0s9o+Nirn1A3VPi9pWyvsTfWQXz)
-    port: 5672
-    username: ENC(4vwbGkk/yPNDZOk/areNuw==)
-    password: ENC(TtZI4XvF651qurD25vbCF6NzrFHseOCn)  
+       
     
-mybatis:
-  mapper-locations: classpath*:com/yzeng/userserver/mapper/**/*Mapper.xml
-  type-aliases-package: com.yzeng.userserver.DO 
 
-#设置全局请求路径前缀
-#server:
-#  servlet:
-#    context-path: /user
+
+
 
 
 #是否激活 swagger true or false

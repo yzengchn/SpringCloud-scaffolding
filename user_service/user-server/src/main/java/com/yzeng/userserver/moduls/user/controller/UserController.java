@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yzeng.userserver.DO.UserDO;
+import com.yzeng.userserver.DO.UserInfoDO;
 import com.yzeng.userserver.DTO.UserMsgDTO;
 import com.yzeng.userserver.VO.ResultVO;
 import com.yzeng.userserver.VO.UserVO;
@@ -57,7 +58,7 @@ public class UserController {
 									 @RequestParam("size")Integer size)
 	{
 		List<UserDO> listUser = userServiceMybatis.ListUser();
-		List<UserDO> listUsers = userService.listUsers(page, size, null);
+		List<UserInfoDO> listUsers = userService.listUsers(page, size, null);
 		List<UserMsgDTO> msgDTOList = UserDO2UserMsgDTOConverter.UserDOList2UserMsgDTOList(listUsers);
 		return msgDTOList;
 	}
@@ -93,7 +94,7 @@ public class UserController {
 		ResultVO rVO = new ResultVO(ResultEnum.SUCCESS);
 		UserMsgDTO dto = new UserMsgDTO();
 		BeanUtils.copyProperties(user, dto);
-		dto.setLastIp(IPUtils.getIpAddr(request));
+		dto.setIp(IPUtils.getIpAddr(request));
 		userService.saveUser(dto);
 		return rVO;
 	}
@@ -106,7 +107,7 @@ public class UserController {
 		@ApiImplicitParam(name="password",value="新密码")
 	})
 	public ResultVO resetPwd(HttpServletRequest request,
-							 @RequestParam("userId")Integer userId,
+							 @RequestParam("userId")String userId,
 							 @RequestParam("oldPassword")String oldPassword,
 							 @RequestParam("password")String password) {
 		if(StringUtils.isBlank(password) || StringUtils.isBlank(oldPassword) 

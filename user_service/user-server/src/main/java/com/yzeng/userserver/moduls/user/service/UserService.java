@@ -3,6 +3,7 @@ package com.yzeng.userserver.moduls.user.service;
 import java.util.List;
 
 import com.yzeng.userserver.DO.UserDO;
+import com.yzeng.userserver.DO.UserInfoDO;
 import com.yzeng.userserver.DTO.UserMsgDTO;
 
 public interface UserService {
@@ -13,7 +14,7 @@ public interface UserService {
 	 * @title listUsers
 	 * @return List<UserDO>
 	 */
-	List<UserDO> listUsers(Integer page, Integer size, Integer sort);
+	List<UserInfoDO> listUsers(Integer page, Integer size, Integer sort);
 	
 	/**
 	 * 根据用户名查询用户 
@@ -23,7 +24,7 @@ public interface UserService {
 	 * @param username
 	 * @return UserDO
 	 */
-	UserDO getUserByName(String username);
+	UserInfoDO getUserByName(String username);
 	
 	/**
 	 * 保存用户
@@ -33,7 +34,7 @@ public interface UserService {
 	 * @param dto
 	 * @return UserDO
 	 */
-	UserDO saveUser(UserMsgDTO dto);
+	UserInfoDO saveUser(UserMsgDTO dto);
 	
 	/**
 	 * 修改密码 
@@ -45,7 +46,7 @@ public interface UserService {
 	 * @param password
 	 * @param ip
 	 */
-	void resetPassword(Integer userId, String oldPassword, String password,String ip);
+	void resetPassword(String userId, String oldPassword, String password,String ip);
 	
 	/**
 	 * 用户名加密码登录

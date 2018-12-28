@@ -4,9 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.yzeng.userserver.DO.UserDO;
+import com.yzeng.userserver.DO.UserInfoDO;
 
-public interface UserRepository extends JpaRepository<UserDO, Integer>{
+public interface UserRepository extends JpaRepository<UserInfoDO, String>{
 	/**
 	 * 根据用户名查询用户信息
 	 * @author <a href="http://www.yzblog.xyz">yzblog</a>
@@ -16,8 +16,8 @@ public interface UserRepository extends JpaRepository<UserDO, Integer>{
 	 * @return
 	 * @return UserDO
 	 */
-	UserDO getUserByUsername(String username);
+	UserInfoDO getUserByName(String name);
 	
 	@Override
-	Page<UserDO> findAll(Pageable pageable);
+	Page<UserInfoDO> findAll(Pageable pageable);
 }

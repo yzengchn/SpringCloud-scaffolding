@@ -6,7 +6,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Test {
 	/**
@@ -19,11 +22,21 @@ public class Test {
         }
      };
 	
-	public static void main(String[] args) {
-		String format = simpleDateFormatThreadLocal.get().format(new Date());
+	public static void main(String[] args) throws InterruptedException {
+		/*AtomicLong atomicLong = new AtomicLong();
+		while(true) {
+			Thread.sleep(2000);
+			System.out.println(atomicLong.incrementAndGet());
+		}*/
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encode = encoder.encode("admin");
+		System.out.println(encode);
+		
+		/*String format = simpleDateFormatThreadLocal.get().format(new Date());
 		
 		List<Map<String, String>> mapList = createMocksData();
-		/*mapList
+		mapList
 			.stream()
 			.map(map -> {
 				if(map.get("ID_NO").equals("413001196701162614")) {
@@ -34,7 +47,7 @@ public class Test {
 		
 		mapList
 			.stream()
-			.map(map -> map.get("ID_NO")).collect(Collectors.toList());*/
+			.map(map -> map.get("ID_NO")).collect(Collectors.toList());
 		
 		
 		mapList
@@ -42,7 +55,7 @@ public class Test {
 			.filter(map -> 
 				map.get("ID_NO").equals("413001196701162614")
 			).collect(Collectors.toList());
-		System.out.println(mapList);
+		System.out.println(mapList);*/
 	}
 	
 	

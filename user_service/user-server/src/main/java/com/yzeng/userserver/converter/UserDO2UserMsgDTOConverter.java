@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 
 import com.yzeng.userserver.DO.MessageDO;
 import com.yzeng.userserver.DO.UserDO;
+import com.yzeng.userserver.DO.UserInfoDO;
 import com.yzeng.userserver.DTO.UserMsgDTO;
 
 public class UserDO2UserMsgDTOConverter {
@@ -20,7 +21,7 @@ public class UserDO2UserMsgDTOConverter {
         }
 	};
 	
-	public static UserMsgDTO userDO2UserMsgDTO(UserDO userDO) {
+	public static UserMsgDTO userDO2UserMsgDTO(UserInfoDO userDO) {
 		//System.out.println(format.get().format(new Date()));
 		UserMsgDTO dto = new UserMsgDTO();
 		BeanUtils.copyProperties(userDO, dto);
@@ -30,9 +31,9 @@ public class UserDO2UserMsgDTOConverter {
 		return dto;
 	}
 	
-	public static List<UserMsgDTO> UserDOList2UserMsgDTOList(List<UserDO> userDOList){
+	public static List<UserMsgDTO> UserDOList2UserMsgDTOList(List<UserInfoDO> userDOList){
 		List<UserMsgDTO> dtos = new ArrayList<UserMsgDTO>();
-		for (UserDO userDO : userDOList) {
+		for (UserInfoDO userDO : userDOList) {
 			dtos.add(userDO2UserMsgDTO(userDO));
 		}
 		return dtos;

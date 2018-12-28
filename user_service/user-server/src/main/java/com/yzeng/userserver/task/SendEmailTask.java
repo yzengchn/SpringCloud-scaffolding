@@ -12,6 +12,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
 import com.yzeng.userserver.DO.UserDO;
+import com.yzeng.userserver.DO.UserInfoDO;
 import com.yzeng.userserver.moduls.user.service.UserService;
 
 @Component
@@ -25,8 +26,8 @@ public class SendEmailTask extends QuartzJobBean{
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		log.info("Task___++++");
-		List<UserDO> listUsers = userService.listUsers(1,2,null);
-		for (UserDO userDO : listUsers) {
+		List<UserInfoDO> listUsers = userService.listUsers(1,2,null);
+		for (UserInfoDO userDO : listUsers) {
 			System.out.println(userDO.toString());
 		}
 	}

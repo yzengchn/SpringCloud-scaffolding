@@ -12,16 +12,16 @@ import javax.validation.constraints.NotNull;
  */
 public class UserVO {
 	@NotEmpty(message="用户名不能为空")
-	private String username;
+	private String name;
 	@NotEmpty(message="密码不能为空")
 	private String password;
 	@NotNull(message="年龄不能为空")
 	private Integer age;
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getPassword() {
 		return password;
@@ -35,10 +35,8 @@ public class UserVO {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
-	@Override
-	public String toString() {
-		return "UserVO [username=" + username + ", password=" + password + ", age=" + age + "]";
-	}
+	
+	
 	
 	
 }
