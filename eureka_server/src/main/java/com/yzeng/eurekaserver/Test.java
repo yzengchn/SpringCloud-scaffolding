@@ -2,14 +2,13 @@ package com.yzeng.eurekaserver;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Test {
 	/**
@@ -29,9 +28,25 @@ public class Test {
 			System.out.println(atomicLong.incrementAndGet());
 		}*/
 		
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		/*BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encode = encoder.encode("admin");
-		System.out.println(encode);
+		System.out.println(encode);*/
+		
+		List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
+		
+		Collections.sort(names, new Comparator<String>() {
+
+			@Override
+			public int compare(String a, String b) {
+				return a.compareTo(b);
+			}
+		});
+		
+		System.out.println(names);
+		
+		Collections.sort(names, (a, b) -> a.compareTo(b));
+		System.out.println("Lambda"+names);
+		
 		
 		/*String format = simpleDateFormatThreadLocal.get().format(new Date());
 		
