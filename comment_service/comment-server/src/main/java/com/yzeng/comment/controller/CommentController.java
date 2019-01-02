@@ -19,6 +19,9 @@ import com.yzeng.comment.form.CommentsInfoForm;
 import com.yzeng.comment.service.CommentService;
 import com.yzeng.comment.utils.ResultVOUtils;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class CommentController {
 
@@ -26,6 +29,8 @@ public class CommentController {
 	private CommentService commentService;
 	
 	@PostMapping("save")
+	@ApiOperation(value="保存评论",notes="公用评论保存方法（资源评论，人评论/回复）")
+	@ApiImplicitParam(name="CommentsInfoForm",value="评论实体",dataType="Json")
 	public ResultVO saveComment(@Valid CommentsInfoForm form, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return ResultVOUtils.error(ResultEnum.PARAMS_ERROR);
@@ -41,6 +46,8 @@ public class CommentController {
 	
 	
 	@GetMapping("get/{ownerId}")
+	@ApiOperation(value="查询评论",notes="根据资源ID获取旗下的所有评论列表")
+	@ApiImplicitParam(name="ownerId",value="资源ID",dataType="String")
 	public ResultVO getCommentsByOwnerId(@PathVariable String ownerId) {
 		
 		List<CommentsInfoDTO> info = commentService.getCommentsByOwnerId(ownerId);
