@@ -12,8 +12,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: ENC(vZSAzPqDeMa6QyAfOnjsGw==)
-    password: ENC(vj6RHAkuT7UvXf5GiKKVdA==)
-    url: ENC(28/yrdUKDKEfnBZQ7i07WuGrE9mE8ZRhmxaqF9lLhxnGxY8m3zo/nfJS45gl8vSDdHdku/Bl0yr1tuvw6byG5oDC5nbnqDm9NDU77LpCE7k=)
+    password: ENC(RCwKx2oAxjqnnKYPajABZCYTl0wff5JA)
+    url: ENC(ohAU7twqQlHHhi/Ark/8HoU7Iqj4gCzUGgvfI+R1asQMeoAuyXBjXmGBVJlCrpGrx0+krZ9nx6hVuVX8HYGthioScu5gKMzMUhl0sl6Q3h0=)  
   jpa:
     hibernate:
       ddl-auto: update 
@@ -22,7 +22,7 @@ spring:
   redis:
     port: 8080
     database: 0
-    host: ENC(FVFRGTDT5QVSJbEfoGADCNCyZHNiTyOp)
+    host: ENC(PIS+LF8DRIas7LYrkxl/siDRkVA1lYpX)
     password:
     jedis:
       pool:
